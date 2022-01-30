@@ -41,7 +41,7 @@ yum install -y remmina
 
 #VirtualBox
 wget -P /tmp https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
-yum localinstall -y /tmp/VirtualBox-6.1-6.1.30_148432_fedora33-1.x86_64.rpm
+yum localinstall -y /tmp/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
 
 #Anydesk
 yum -y --releasever=32 install pangox-compat.x86_64
