@@ -38,6 +38,7 @@ yum install -y sublime-text
 yum install -y flameshot
 yum install -y parcellite
 yum install -y remmina
+yum install -y git
 
 #VirtualBox
 wget -P /tmp https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
