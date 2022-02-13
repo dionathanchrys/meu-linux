@@ -1,3 +1,20 @@
-pipewire OK
-wireplumber-0.4.4-2.fc35.x86_64
-wireplumber-libs-0.4.4-2.fc35.x86_64
+Installed Packages
+pipewire.x86_64                                            0.3.45-2.fc35             @updates
+pipewire-alsa.x86_64                                       0.3.45-2.fc35             @updates
+pipewire-gstreamer.x86_64                                  0.3.45-2.fc35             @updates
+pipewire-jack-audio-connection-kit.x86_64                  0.3.45-2.fc35             @updates
+pipewire-libs.x86_64                                       0.3.45-2.fc35             @updates
+pipewire-pulseaudio.x86_64                                 0.3.45-2.fc35             @updates
+
+ATUALIZADOS E OK
+Installed Packages
+wireplumber.x86_64                              0.4.8-1.fc35                         @updates
+wireplumber-libs.x86_64                         0.4.8-1.fc35                         @updates
+
+
+ESTES OK
+Installed Packages
+alsa-lib.x86_64                                1.2.5.1-3.fc35                       @anaconda
+alsa-sof-firmware.noarch                       1.8-2.fc35                           @anaconda
+alsa-ucm.noarch                                1.2.5.1-3.fc35                       @anaconda
+alsa-utils.x86_64                              1.2.5.1-2.fc35                       @anaconda
