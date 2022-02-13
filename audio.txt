@@ -73,3 +73,10 @@ Removing unused dependencies:
  python3-pyatspi                    noarch 2.38.2-1.fc35           @updates  392 k
  python3-pytz                       noarch 2021.3-1.fc35           @updates  171 k
  tint2                              x86_64 17.0.2-1.fc35           @updates  1.5 M
+ FUDEEEEUUU
+ 
+ TESTE ATUALIZANDO
+ pipewire-jack-audio-connection-kit.x86_64           0.3.38-1.fc35 > 0.3.45-2.fc35
+ 
+ 
+ 
