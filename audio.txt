@@ -19,3 +19,57 @@ alsa-utils.x86_64                          1.2.6-1.fc35                    @upda
 ESTES OK SEM ATUALIZAR
 Installed Packages
 cinnamon-settings-daemon.x86_64                 5.0.3-2.fc35           @anaconda
+
+
+TESTE REMOVENDO
+Removing:
+ cinnamon-settings-daemon           x86_64 5.2.0-2.fc35            @updates  2.3 M
+Removing dependent packages:
+ cinnamon                           x86_64 5.2.7-1.fc35            @updates  7.5 M
+ cinnamon-control-center            x86_64 5.2.1-1.fc35            @updates  1.8 M
+ im-chooser                         x86_64 1.7.4-2.fc35            @updates   34 k
+ im-chooser-common                  x86_64 1.7.4-2.fc35            @updates  854 k
+ imsettings                         x86_64 1.8.3-1.fc35            @updates  1.0 M
+ imsettings-cinnamon                x86_64 1.8.3-1.fc35            @updates  557 k
+ system-config-printer              x86_64 1.5.15-5.fc35           @updates  1.7 M
+Removing unused dependencies:
+ caribou                            x86_64 0.4.21-28.fc35          @anaconda 630 k
+ caribou-gtk2-module                x86_64 0.4.21-28.fc35          @anaconda  44 k
+ caribou-gtk3-module                x86_64 0.4.21-28.fc35          @anaconda  44 k
+ cinnamon-control-center-filesystem x86_64 5.2.1-1.fc35            @updates    0  
+ cinnamon-menus                     x86_64 5.2.0-1.fc35            @updates  192 k
+ cinnamon-session                   x86_64 5.2.0-1.fc35            @updates  467 k
+ cinnamon-themes                    noarch 1:1.9.6-1.fc35          @updates  1.9 M
+ evolution-data-server              x86_64 3.42.3-1.fc35           @updates  8.1 M
+ evolution-data-server-langpacks    noarch 3.42.3-1.fc35           @updates  9.4 M
+ geoclue2-libs                      x86_64 2.5.7-6.fc35            @fedora   150 k
+ geocode-glib                       x86_64 3.26.2-4.fc35           @fedora   230 k
+ gnome-backgrounds                  noarch 41.0-1.fc35             @anaconda  15 M
+ gnome-calendar                     x86_64 41.2-1.fc35             @updates  1.8 M
+ gnome-color-manager                x86_64 3.36.0-6.fc35           @anaconda 3.3 M
+ gnome-menus                        x86_64 3.36.0-5.fc35           @anaconda 624 k
+ gucharmap                          x86_64 14.0.1-1.fc35           @updates  2.5 M
+ gucharmap-libs                     x86_64 14.0.1-1.fc35           @updates  5.2 M
+ iio-sensor-proxy                   x86_64 3.3-1.fc35              @anaconda 152 k
+ imlib2                             x86_64 1.6.1-5.fc35            @updates  722 k
+ imsettings-libs                    x86_64 1.8.3-1.fc35            @updates  597 k
+ libdazzle                          x86_64 3.42.0-1.fc35           @fedora   1.2 M
+ libgweather                        x86_64 40.0-2.fc35             @fedora    22 M
+ libical-glib                       x86_64 3.0.14-1.fc35           @updates  1.7 M
+ libphonenumber                     x86_64 8.12.11-9.fc35          @fedora    17 M
+ mint-themes                        noarch 1:1.9.6-1.fc35          @updates  1.3 M
+ mint-themes-gtk3                   noarch 1:1.9.6-1.fc35          @updates  386 k
+ mintlocale                         noarch 1.4.7-10.fc35           @anaconda 104 k
+ mintlocale-set-default-locale      noarch 1.4.7-10.fc35           @anaconda 393  
+ muffin                             x86_64 5.2.0-1.fc35            @updates  8.7 M
+ network-manager-applet             x86_64 1.24.0-1.fc35           @anaconda 663 k
+ pinentry-gnome3                    x86_64 1.2.0-1.fc35            @fedora    81 k
+ polkit-gnome                       x86_64 0.106-0.10.20170423gita0763a2.fc35
+                                                                   @updates  279 k
+ protobuf                           x86_64 3.14.0-6.fc35           @fedora   3.1 M
+ python3-caribou                    noarch 0.4.21-28.fc35          @anaconda 116 k
+ python3-inotify                    noarch 0.9.6-25.fc35           @anaconda 243 k
+ python3-pam                        noarch 1.8.4-12.fc35           @anaconda  18 k
+ python3-pyatspi                    noarch 2.38.2-1.fc35           @updates  392 k
+ python3-pytz                       noarch 2021.3-1.fc35           @updates  171 k
+ tint2                              x86_64 17.0.2-1.fc35           @updates  1.5 M
