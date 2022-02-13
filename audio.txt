@@ -1,0 +1,3 @@
+pipewire OK
+wireplumber-0.4.4-2.fc35.x86_64
+wireplumber-libs-0.4.4-2.fc35.x86_64
