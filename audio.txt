@@ -12,9 +12,9 @@ wireplumber.x86_64                              0.4.8-1.fc35                    
 wireplumber-libs.x86_64                         0.4.8-1.fc35                         @updates
 
 
-ESTES OK
+ESTES OK SEM ATUALIZAR
 Installed Packages
-alsa-lib.x86_64                                1.2.5.1-3.fc35                       @anaconda
-alsa-sof-firmware.noarch                       1.8-2.fc35                           @anaconda
-alsa-ucm.noarch                                1.2.5.1-3.fc35                       @anaconda
-alsa-utils.x86_64                              1.2.5.1-2.fc35                       @anaconda
+alsa-lib.x86_64                                           1.2.5.1-3.fc35                                  @anaconda
+alsa-sof-firmware.noarch                                  1.8-2.fc35                                      @anaconda
+alsa-ucm.noarch                                           1.2.5.1-3.fc35                                  @anaconda
+alsa-utils.x86_64                                         1.2.5.1-2.fc35                                  @anaconda
