@@ -54,3 +54,7 @@ snap install authy
 snap install vlc
 snap install obs-studio
 snap install spotify
+
+#Reiniciando
+sleep 60
+reboot
