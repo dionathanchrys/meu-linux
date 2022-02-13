@@ -1,0 +1,5 @@
+#Mostra kernels instalados
+rpm -qa kernel
+
+#Downgrade de kernel
+sudo apt remove linux-image-VERSÃO-generic linux-headers-VERSÃO-generic
