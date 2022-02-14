@@ -7,7 +7,7 @@ NOME=PMNPOA300
 hostname -b $NOME
 
 #Atualizando sistema
-yum update -y
+yum update -y --exclude kernel*
 
 #Habilitar para poder adicionar repos
 yum install -y yum-utils
