@@ -39,6 +39,7 @@ yum install -y flameshot
 yum install -y parcellite
 yum install -y remmina
 yum install -y git
+yum install -y ocsinventory-agent
 
 #VirtualBox
 wget -P /tmp https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
@@ -48,6 +49,15 @@ yum localinstall -y /tmp/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
 yum -y --releasever=32 install pangox-compat.x86_64
 wget -P /tmp https://download.anydesk.com/linux/anydesk_6.1.1-1_x86_64.rpm
 yum localinstall -y /tmp/anydesk_6.1.1-1_x86_64.rpm
+
+#Configs
+
+echo "server = http://10.10.10.10/ocsinventory
+# local = /var/lib/ocsinventory-agent
+# tag = $NOME
+# How to log, can be File,Stderr,Syslog
+logger = Stderr
+logfile = /var/log/ocsinventory-agent/ocsinventory-agent.log" > /etc/ocsinventory/ocsinventory-agent.cfg 
 
 #Snap
 snap install authy
