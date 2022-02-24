@@ -30,6 +30,9 @@ enabled=1
 gpgcheck=1
 gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo
 
+yum install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-rawhide.noarch.rpm
+yum install -y http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-rawhide.noarch.rpm
+
 #Instalando programas
 yum install -y snapd
 yum install -y google-chrome-stable.x86_64
@@ -40,6 +43,7 @@ yum install -y parcellite
 yum install -y remmina
 yum install -y git
 yum install -y ocsinventory-agent
+yum insyall -y vlc
 
 #VirtualBox
 wget -P /tmp https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
@@ -60,10 +64,9 @@ logger = Stderr
 logfile = /var/log/ocsinventory-agent/ocsinventory-agent.log" > /etc/ocsinventory/ocsinventory-agent.cfg 
 
 #Snap
-snap install authy
-snap install vlc
-snap install obs-studio
 snap install spotify
+snap install authy
+snap install obs-studio
 
 #Reiniciando
 sleep 60
