@@ -28,11 +28,13 @@ apt install -y anydesk
 
 echo "server = http://10.10.10.10/ocsinventory
 # local = /var/lib/ocsinventory-agent
-tag = $NOME
+#tag = $NOME
 # How to log, can be File,Stderr,Syslog
 logger = Stderr
-logfile = /var/log/ocsinventory-agent/ocsinventory-agent.log" > /etc/ocsinventory/ocsinventory-agent.cfg 
+logfile = /var/log/ocsinventory-agent/ocsinventory-agent.log" > /etc/ocsinventory/ocsinventory-agent.cfg
+
+ocsinventory-agent
 
 #Reiniciando
 sleep 60
-reboot
+#reboot
