@@ -1,5 +1,0 @@
-Installing:
- kernel                x86_64        5.16.8-200.fc35          updates         84 k
- kernel-modules        x86_64        5.16.8-200.fc35          updates         51 M
-Installing dependencies:
- kernel-core           x86_64        5.16.8-200.fc35          updates         45 M
