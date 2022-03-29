@@ -19,15 +19,6 @@ wget -P /tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd
 echo " " && echo "Instalando Google Chrome" && echo " "
 apt install -y /tmp/google-chrome-stable_current_amd64.deb
 
-#Anydesk
-echo " " && echo "#######################################" && echo "Adicionando chave e repos do Anydesk" && echo "#######################################" && echo " "
-wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
-echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
-
-#Instalando programas
-echo " " && echo "#######################################" && echo "Instalando Anydesk" && echo "#######################################" && echo " "
-apt install -y anydesk
-
 echo " " && echo "#######################################" && echo "Instalando OCS Agent" && echo "#######################################" && echo " "
 echo "NA PROXIMA TELA, NA INSTALAÇÃO DO OCS ESCOLHA A OPÇÃO -> LOCAL <-"
 echo "Pressione enter para continuar" && read
