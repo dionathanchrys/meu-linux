@@ -48,3 +48,4 @@ ocsinventory-agent
 echo " " && echo "Qual é o usuário para criar?"
 read usuario
 adduser --force-badname $usuario
+adduser $usuario sudo
