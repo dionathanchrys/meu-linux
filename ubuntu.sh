@@ -44,6 +44,6 @@ logfile = /var/log/ocsinventory-agent/ocsinventory-agent.log" > /etc/ocsinventor
 echo " " && echo "Rodando OCS Agent" && echo " "
 ocsinventory-agent
 
-#Reiniciando
-sleep 60
-#reboot
+echo "Qual é o usuário para criar?"
+read usuario
+adduser --force-badname $usuario
