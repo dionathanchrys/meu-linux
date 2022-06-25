@@ -41,6 +41,27 @@ yum install -y parcellite
 yum install -y remmina
 yum insyall -y vlc
 
+aws_cli
+
+ansible
+
+python-boto3
+
+python-testresources
+
+python-google-auth
+
+sudo yum install filezilla
+
+localinstall veracrypt
+
+telnet
+snap install notion-snap
+
+putty
+
+
+
 #VirtualBox
 wget -P /tmp https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
 yum localinstall -y /tmp/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
