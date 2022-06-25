@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Variaveis
-NOME=PMNPOA300
+NOME=DIONATHAN-NOTE
 
 #Setando hostname
 hostname -b $NOME
