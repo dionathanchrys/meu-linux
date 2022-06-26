@@ -8,73 +8,89 @@ read NOME
 hostname -b $NOME
 
 #Atualizando sistema
-echo " " && echo "#######################################" && echo "Atualizando sistema (apt UPDATE)" && echo "#######################################" && echo " "
+echo " " && echo "Atualizando sistema (apt UPDATE)" && echo " "
 apt update -y
-echo " " && echo "#######################################" && echo "Atualizando sistema (apt UPGRADE)" && echo "#######################################" && echo " "
+echo " " && echo "Atualizando sistema (apt UPGRADE)" && echo " "
 apt upgrade -y
 
 #Instalando programas
 #Google Chrome
-echo " " && echo "#######################################" && echo "Baixando Google Chrome" && echo "#######################################" && echo " "
+echo " " && echo "Baixando Google Chrome" && echo " "
 wget -P /tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-echo " " && echo "#######################################" && echo "Instalando Google Chrome" && echo "#######################################" && echo " "
+echo " " && echo "Instalando Google Chrome" && echo " "
 apt install -y /tmp/google-chrome-stable_current_amd64.deb
 
-rpm --import https://packages.microsoft.com/keys/microsoft.asc
-echo "[code]
-name=Visual Studio Code
-baseurl=https://packages.microsoft.com/yumrepos/vscode
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo
+#Sublime Text
+echo " " && echo "Adicionando repos Sublime Text" && echo " "
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+echo " " && echo "Instalando Sublime Text" && echo " "
+apt install -y sublime-text
 
-yum install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-rawhide.noarch.rpm
-yum install -y http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-rawhide.noarch.rpm
+#VS Code
+echo " " && echo "Baixando VS Code" && echo " "
+wget -O /tmp/vscode.deb https://update.code.visualstudio.com/latest/linux-x64/stable
+echo " " && echo "Instalando VS Code" && echo " "
+apt install -y /tmp/vscode.deb
 
-#Instalando programas
-yum install -y snapd
-yum install -y code
-yum install -y git
-yum install -y sublime-text
-yum install -y flameshot
-yum install -y parcellite
-yum install -y remmina
-yum insyall -y vlc
+echo " " && echo "Baixando VeraCrypt" && echo " "
+wget -O /tmp/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.25.9/+download/veracrypt-1.25.9-Ubuntu-22.04-amd64.deb
+echo " " && echo "Instalando Veracrypt" && echo " "
+apt install -y /tpm/veracrypt.deb
 
-aws_cli
+# echo " " && echo "Instalando Snap" && echo " "
+# apt install -y snapd
 
-ansible
+echo " " && echo "Instalando Git" && echo " "
+apt install -y git
 
-python-boto3
+echo " " && echo "Instalando Telnet" && echo " "
+apt install -y telnet
 
-python-testresources
+echo " " && echo "Instalando Parcellite" && echo " "
+apt install -y parcellite
 
-python-google-auth
+echo " " && echo "Instalando Remmina" && echo " "
+apt install -y remmina
 
-sudo yum install filezilla
+echo " " && echo "Instalando Flameshot" && echo " "
+apt install -y flameshot
 
-localinstall veracrypt
+echo " " && echo "Instalando Filezilla" && echo " "
+sudo apt install filezilla
 
-telnet
-snap install notion-snap
+echo " " && echo "Instalando Putty" && echo " "
+apt install -y putty
 
-putty
-
-
+echo " " && echo "Instalando VLC" && echo " "
+apt install -y vlc
 
 #VirtualBox
-wget -P /tmp https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
-yum localinstall -y /tmp/VirtualBox-6.1-6.1.26_145957_fedora33-1.x86_64.rpm
+echo " " && echo "Baixando VirtualBox" && echo " "
+wget -O /tmp/virtualbox.deb https://download.virtualbox.org/virtualbox/6.1.34/virtualbox-6.1_6.1.34-150636.1~Ubuntu~jammy_amd64.deb
+
+echo " " && echo "Instalando VirtualBox" && echo " "
+apt install -y /tpm/virtualbox.deb
 
 #Anydesk
-yum -y --releasever=32 install pangox-compat.x86_64
-wget -P /tmp https://download.anydesk.com/linux/anydesk_6.1.1-1_x86_64.rpm
-yum localinstall -y /tmp/anydesk_6.1.1-1_x86_64.rpm
+echo " " && echo "Adicionando repos Anydesk" && echo " "
+wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
+echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+
+echo " " && echo "Instalando Anydesk" && echo " "
+apt install -y anydesk
 
 #Snap
 snap install spotify
 snap install authy
 snap install obs-studio
+snap install notion-snap
+
+# aws_cli
+# ansible
+# python-boto3
+# python-testresources
+# python-google-auth
 
 #Reiniciando
 sleep 60
