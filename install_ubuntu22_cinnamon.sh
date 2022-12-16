@@ -95,6 +95,10 @@
 
     echo " " && echo "Instalando Anydesk" && echo " "
     apt install -y /tmp/anydesk.deb
+    
+#Utilitarios
+    #Precisa para funcionar o Graphical Hardware Monitor no painel
+    apt install gir1.2-gtop-2.0
 
 #Snap
     snap install spotify
