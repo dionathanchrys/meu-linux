@@ -11,6 +11,11 @@
     echo " " && echo "Adicionando repos Sublime Text" && echo " "
     wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    
+    echo " " && echo "Adicionando repos Kubernetes" && echo " "
+    apt update && apt install -y apt-transport-https gnupg2
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 
 #Atualizando sistema
     echo " " && echo "Atualizando sistema (apt UPDATE)" && echo " "
@@ -76,6 +81,18 @@
     echo " " && echo "Instalando VLC" && echo " "
     apt install -y vlc
 
+#K8S
+    echo " " && echo "Instalando K8S" && echo " "
+    apt install -y kubelet kubeadm kubectl
+    kubectl completion bash > /etc/bash_completion.d/kubectl
+    kubeadm completion bash > /etc/bash_completion.d/kubeadm
+    wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx
+    wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
+    wget https://github.com/stern/stern/releases/download/v1.24.0/stern_1.24.0_linux_amd64.tar.gz
+    tar -xvf stern_1.24.0_linux_amd64.tar.gz
+    mv kubens kubectx stern /usr/local/bin
+    chmod +x /usr/local/bin/kubectx /usr/local/bin/kubens /usr/local/bin/stern
+    
 #VirtualBox
     echo " " && echo "Baixando VirtualBox" && echo " "
     wget -O /tmp/virtualbox.deb https://download.virtualbox.org/virtualbox/6.1.34/virtualbox-6.1_6.1.34-150636.1~Ubuntu~jammy_amd64.deb
