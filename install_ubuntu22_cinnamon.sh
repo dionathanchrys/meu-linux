@@ -92,6 +92,10 @@
     tar -xvf stern_1.24.0_linux_amd64.tar.gz
     mv kubens kubectx stern /usr/local/bin
     chmod +x /usr/local/bin/kubectx /usr/local/bin/kubens /usr/local/bin/stern
+
+#xclip    
+    echo " " && echo "Instalando xclip" && echo " "
+    apt install -y xclip
     
 #VirtualBox
     echo " " && echo "Baixando VirtualBox" && echo " "
