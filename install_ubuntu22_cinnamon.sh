@@ -88,7 +88,7 @@
     chmod +x /usr/local/bin/kubectx /usr/local/bin/kubens /usr/local/bin/stern
 
 #VirtualBox
-    echo " " && echo "Instalando VirtualBox" && echo " "
+    echo " " && echo "Baixando VirtualBox" && echo " "
     wget -O /tmp/virtualbox.deb https://download.virtualbox.org/virtualbox/7.0.6/virtualbox-7.0_7.0.6-155176~Ubuntu~jammy_amd64.deb
 
     echo " " && echo "Instalando VirtualBox" && echo " "
