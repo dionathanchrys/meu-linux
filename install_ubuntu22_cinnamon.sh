@@ -1,4 +1,13 @@
 #!/bin/bash
+#Vars
+    v_kubernetes=1.25.6
+    v_openLens=6.5.2-366
+    download_dir=~/Downloads
+####################################################################
+    echo "Executar esse script root, caso não esteja cancele agora!"
+    echo "Pressione ENTER para continuar"
+    read
+####################################################################
 
 #Adicionando repos
     echo " " && echo "Adicionando repos Sublime Text" && echo " "
@@ -6,7 +15,7 @@
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
     echo " " && echo "Adicionando repos Kubernetes" && echo " "
-    apt update && apt install -y apt-transport-https ca-certificates curl
+    apt install -y apt-transport-https ca-certificates curl
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 
@@ -18,9 +27,13 @@
 
 #Google Chrome
     echo " " && echo "Baixando Google Chrome" && echo " "
-    wget -O /tmp/google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    wget -O $download_dir/google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     echo " " && echo "Instalando Google Chrome" && echo " "
-    apt install -y /tmp/google-chrome.deb
+    apt install -y $download_dir/google-chrome.deb
+
+#Git
+    echo " " && echo "Instalando Git" && echo " "
+    apt install -y git
 
 #Sublime Text
     echo " " && echo "Instalando Sublime Text" && echo " "
@@ -32,20 +45,16 @@
 
 #VS Code
     echo " " && echo "Baixando VS Code" && echo " "
-    wget -O /tmp/vscode.deb https://update.code.visualstudio.com/latest/linux-deb-x64/stable
+    wget -O $download_dir/vscode.deb https://update.code.visualstudio.com/latest/linux-deb-x64/stable
     echo " " && echo "Instalando VS Code" && echo " "
-    apt install -y /tmp/vscode.deb
+    apt install -y $download_dir/vscode.deb
 
 #VeraCrypt
     echo " " && echo "Baixando VeraCrypt" && echo " "
-    wget -O /tmp/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.25.9/+download/veracrypt-1.25.9-Ubuntu-22.04-amd64.deb
+    wget -O $download_dir/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.25.9/+download/veracrypt-1.25.9-Ubuntu-22.04-amd64.deb
 
     echo " " && echo "Instalando Veracrypt" && echo " "
-    apt install -y /tmp/veracrypt.deb
-
-#Git
-    echo " " && echo "Instalando Git" && echo " "
-    apt install -y git
+    apt install -y $download_dir/veracrypt.deb
 
 #Telnet
     echo " " && echo "Instalando Telnet" && echo " "
@@ -75,38 +84,51 @@
     echo " " && echo "Instalando VLC" && echo " "
     apt install -y vlc
 
-#K8S
+#Kubernetes
     echo " " && echo "Instalando K8S e ferramentas" && echo " "
-    apt install -y kubelet kubeadm kubectl
+    apt install -y kubelet=$v_kubernetes-00 kubeadm=$v_kubernetes-00 kubectl=$v_kubernetes-00
+    apt install -y fzf
     kubectl completion bash > /etc/bash_completion.d/kubectl
     kubeadm completion bash > /etc/bash_completion.d/kubeadm
-    wget -O /tmp/kubectx https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx
-    wget -O /tmp/kubens https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
-    wget -O /tmp/stern.tar.gz https://github.com/stern/stern/releases/download/v1.24.0/stern_1.24.0_linux_amd64.tar.gz
-    tar -xvf /tmp/stern.tar.gz -C /tmp
-    mv /tmp/kubens /tmp/kubectx /tmp/stern /usr/local/bin
+    apt-mark hold kubectl kubelet kubeadm
+    wget -O $download_dir/kubectx https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx
+    wget -O $download_dir/kubens https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
+    wget -O $download_dir/stern.tar.gz https://github.com/stern/stern/releases/download/v1.24.0/stern_1.24.0_linux_amd64.tar.gz
+    tar -xvf $download_dir/stern.tar.gz -C $download_dir
+    mv $download_dir/kubens $download_dir/kubectx $download_dir/stern /usr/local/bin
     chmod +x /usr/local/bin/kubectx /usr/local/bin/kubens /usr/local/bin/stern
 
 #VirtualBox
     echo " " && echo "Baixando VirtualBox" && echo " "
-    wget -O /tmp/virtualbox.deb https://download.virtualbox.org/virtualbox/7.0.6/virtualbox-7.0_7.0.6-155176~Ubuntu~jammy_amd64.deb
+    wget -O $download_dir/virtualbox.deb https://download.virtualbox.org/virtualbox/7.0.6/virtualbox-7.0_7.0.6-155176~Ubuntu~jammy_amd64.deb
 
     echo " " && echo "Instalando VirtualBox" && echo " "
-    apt install -y /tmp/virtualbox.deb
+    apt install -y $download_dir/virtualbox.deb
+
+#OpenLens
+    echo " " && echo "Baixando OpenLens" && echo " "
+    wget -O $download_dir/openlens.deb https://github.com/MuhammedKalkan/OpenLens/releases/download/v$v_openLens/OpenLens-$v_openLens.amd64.deb
+
+    echo " " && echo "Instalando OpenLens" && echo " "
+    apt install -y $download_dir/openlens.deb
+
+#K9S
+    echo " " && echo "Instalando K9S" && echo " "
+    curl -sS https://webinstall.dev/k9s@0.27.4 | bash
 
 #Anydesk
     # echo " " && echo "Baixando libpangox" && echo " "
-    # wget -O /tmp/libpangox.deb http://ftp.us.debian.org/debian/pool/main/p/pangox-compat/libpangox-1.0-0_0.0.2-5.1_amd64.deb
+    # wget -O $download_dir/libpangox.deb http://ftp.us.debian.org/debian/pool/main/p/pangox-compat/libpangox-1.0-0_0.0.2-5.1_amd64.deb
 
     # echo " " && echo "Instalando libpangox" && echo " "
-    # apt install /tmp/libpangox.deb
+    # apt install $download_dir/libpangox.deb
 
     # echo " " && echo "Baixando Anydesk" && echo " "
-    # wget -O /tmp/anydesk.deb https://download.anydesk.com/linux/anydesk_6.2.0-1_amd64.deb
+    # wget -O $download_dir/anydesk.deb https://download.anydesk.com/linux/anydesk_6.2.0-1_amd64.deb
 
     # echo " " && echo "Instalando Anydesk" && echo " "
-    # apt install -y /tmp/anydesk.deb
-    
+    # apt install -y $download_dir/anydesk.deb
+
 #Utilitarios
     #Precisa para funcionar o Graphical Hardware Monitor no painel
     apt install gir1.2-gtop-2.0
@@ -115,14 +137,18 @@
 
 #Snap
     snap install spotify
+    snap install slack
+    snap install postman
     snap install authy
     snap install obs-studio
     snap install notion-snap
-    snap install postman
     snap install kompare
-    snap install slack
-# aws_cli
-# ansible
-# python-boto3
-# python-testresources
-# python-google-auth
+
+#ZSH
+    # echo " " && echo "Instalando ZSH" && echo " "
+    # apt install -y zsh
+    # echo " " && echo "Configurando ZSH como default" && echo " "
+    # chsh -s $(which zsh)
+
+    # echo " " && echo "Instalando Oh My " && echo " "
+    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
