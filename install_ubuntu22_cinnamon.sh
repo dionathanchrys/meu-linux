@@ -84,6 +84,22 @@
     echo " " && echo "Instalando VLC" && echo " "
     apt install -y vlc
 
+#Docker
+    echo " " && echo "Instalando Docker Repository" && echo " "
+    sudo apt-get install ca-certificates curl gnupg
+    echo " " && echo "Adicionando GPG key" && echo " "
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+    echo " " && echo "Configurando o repositório" && echo " "
+    echo \
+          "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+          "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    echo " " && echo "Instalando Docker Engine e Docker Compose" && echo " "
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+	
+
 #Kubernetes
     echo " " && echo "Instalando K8S e ferramentas" && echo " "
     apt install -y kubelet=$v_kubernetes-00 kubeadm=$v_kubernetes-00 kubectl=$v_kubernetes-00
