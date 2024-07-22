@@ -4,7 +4,7 @@
     v_openLens=6.5.2-366
     download_dir=~/Downloads
 ####################################################################
-    echo "Executar esse script root, caso não esteja cancele agora!"
+    echo "Executar esse script como root, caso não esteja cancele agora!"
     echo "Pressione ENTER para continuar"
     read
 ####################################################################
@@ -130,7 +130,7 @@
 
 #K9S
     echo " " && echo "Instalando K9S" && echo " "
-    curl -sS https://webinstall.dev/k9s@0.27.4 | bash
+    curl -sS https://webinstall.dev/k9s@0.31.8 | bash
 
 #Anydesk
     # echo " " && echo "Baixando libpangox" && echo " "
@@ -155,10 +155,7 @@
     snap install spotify
     snap install slack
     snap install postman
-    snap install authy
     snap install obs-studio
-    snap install notion-snap
-    snap install kompare
 
 #ZSH
     # echo " " && echo "Instalando ZSH" && echo " "
