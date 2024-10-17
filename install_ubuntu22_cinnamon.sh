@@ -19,6 +19,11 @@
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 
+    echo " " && echo "Adicionando repos Postgres" && echo " "
+    sudo install -d /usr/share/postgresql-common/pgdg
+    sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+
 #Atualizando sistema
     echo " " && echo "Atualizando sistema (apt UPDATE)" && echo " "
     apt update -y
@@ -86,7 +91,7 @@
 
 #Docker
     echo " " && echo "Instalando Docker Repository" && echo " "
-    sudo apt-get install ca-certificates curl gnupg
+    sudo apt-get install gnupg
     echo " " && echo "Adicionando GPG key" && echo " "
     sudo install -m 0755 -d /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -131,6 +136,10 @@
 #K9S
     echo " " && echo "Instalando K9S" && echo " "
     curl -sS https://webinstall.dev/k9s@0.31.8 | bash
+
+# Postgres CLient
+    echo " " && echo "Instalando Postgres Client" && echo " "
+    sudo apt -y install postgresql-client-14 postgresql-client-15
 
 #Anydesk
     # echo " " && echo "Baixando libpangox" && echo " "
