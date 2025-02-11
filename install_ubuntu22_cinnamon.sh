@@ -24,6 +24,10 @@
     sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
     sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 
+    echo " " && echo "Adicionando repos GCloud CLI" && echo " "
+    sudo curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+    
 #Atualizando sistema
     echo " " && echo "Atualizando sistema (apt UPDATE)" && echo " "
     apt update -y
@@ -139,7 +143,11 @@
 
 # Postgres CLient
     echo " " && echo "Instalando Postgres Client" && echo " "
-    sudo apt -y install postgresql-client-14 postgresql-client-15
+    sudo apt install -y postgresql-client-14 postgresql-client-15
+
+# GCloud CLI
+    echo " " && echo "Instalando GCloud CLI" && echo " "
+    sudo apt install -y google-cloud-cli
 
 #Anydesk
     # echo " " && echo "Baixando libpangox" && echo " "
