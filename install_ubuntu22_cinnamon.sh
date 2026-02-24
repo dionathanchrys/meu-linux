@@ -1,14 +1,13 @@
 #!/bin/bash
 #Vars
-    v_kubernetes=1.25.6
-    v_openLens=6.5.2-366
-    download_dir=~/Downloads
+    # v_kubernetes=1.33.3
+    download_dir=/install-script
 ####################################################################
     echo "Executar esse script como root, caso não esteja cancele agora!"
     echo "Pressione ENTER para continuar"
     read
 ####################################################################
-
+    mkdir /install-script
 #Adicionando repos
     echo " " && echo "Adicionando repos Sublime Text" && echo " "
     wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
@@ -44,6 +43,9 @@
     echo " " && echo "Instalando Git" && echo " "
     apt install -y git
 
+#Postman
+    echo " " && echo "Instalando Postman" && echo " "
+
 #Sublime Text
     echo " " && echo "Instalando Sublime Text" && echo " "
     apt install -y sublime-text
@@ -60,7 +62,7 @@
 
 #VeraCrypt
     echo " " && echo "Baixando VeraCrypt" && echo " "
-    wget -O $download_dir/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.25.9/+download/veracrypt-1.25.9-Ubuntu-22.04-amd64.deb
+    wget -O $download_dir/veracrypt.deb https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Ubuntu-24.04-amd64.deb
 
     echo " " && echo "Instalando Veracrypt" && echo " "
     apt install -y $download_dir/veracrypt.deb
@@ -106,44 +108,48 @@
           "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     echo " " && echo "Instalando Docker Engine e Docker Compose" && echo " "
-    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 	
 
 #Kubernetes
-    echo " " && echo "Instalando K8S e ferramentas" && echo " "
-    apt install -y kubelet=$v_kubernetes-00 kubeadm=$v_kubernetes-00 kubectl=$v_kubernetes-00
-    apt install -y fzf
-    kubectl completion bash > /etc/bash_completion.d/kubectl
-    kubeadm completion bash > /etc/bash_completion.d/kubeadm
-    apt-mark hold kubectl kubelet kubeadm
-    wget -O $download_dir/kubectx https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx
-    wget -O $download_dir/kubens https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
-    wget -O $download_dir/stern.tar.gz https://github.com/stern/stern/releases/download/v1.24.0/stern_1.24.0_linux_amd64.tar.gz
-    tar -xvf $download_dir/stern.tar.gz -C $download_dir
-    mv $download_dir/kubens $download_dir/kubectx $download_dir/stern /usr/local/bin
-    chmod +x /usr/local/bin/kubectx /usr/local/bin/kubens /usr/local/bin/stern
+    # echo " " && echo "Instalando K8S e ferramentas" && echo " "
+    # apt install -y kubelet=$v_kubernetes-00 kubeadm=$v_kubernetes-00 kubectl=$v_kubernetes-00
+    # apt install -y fzf
+    # kubectl completion bash > /etc/bash_completion.d/kubectl
+    # kubeadm completion bash > /etc/bash_completion.d/kubeadm
+    # apt-mark hold kubectl kubelet kubeadm
+    # wget -O $download_dir/kubectx https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx
+    # wget -O $download_dir/kubens https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens
+    # wget -O $download_dir/stern.tar.gz https://github.com/stern/stern/releases/download/v1.24.0/stern_1.24.0_linux_amd64.tar.gz
+    # tar -xvf $download_dir/stern.tar.gz -C $download_dir
+    # mv $download_dir/kubens $download_dir/kubectx $download_dir/stern /usr/local/bin
+    # chmod +x /usr/local/bin/kubectx /usr/local/bin/kubens /usr/local/bin/stern
 
 #VirtualBox
     echo " " && echo "Baixando VirtualBox" && echo " "
-    wget -O $download_dir/virtualbox.deb https://download.virtualbox.org/virtualbox/7.0.6/virtualbox-7.0_7.0.6-155176~Ubuntu~jammy_amd64.deb
+    wget -O $download_dir/virtualbox.deb https://download.virtualbox.org/virtualbox/7.2.6/virtualbox-7.2_7.2.6-172322~Ubuntu~noble_amd64.deb
 
     echo " " && echo "Instalando VirtualBox" && echo " "
     apt install -y $download_dir/virtualbox.deb
 
 #OpenLens
     echo " " && echo "Baixando OpenLens" && echo " "
-    wget -O $download_dir/openlens.deb https://github.com/MuhammedKalkan/OpenLens/releases/download/v$v_openLens/OpenLens-$v_openLens.amd64.deb
+    wget -O $download_dir/openlens.deb https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.amd64.deb
 
     echo " " && echo "Instalando OpenLens" && echo " "
     apt install -y $download_dir/openlens.deb
 
 #K9S
+    echo " " && echo "Baixando K9S" && echo " "
+    wget -O $download_dir/k9s.deb https://github.com/derailed/k9s/releases/download/v0.50.18/k9s_linux_amd64.deb
+
     echo " " && echo "Instalando K9S" && echo " "
-    curl -sS https://webinstall.dev/k9s@0.31.8 | bash
+    apt install -y $download_dir/k9s.deb
+
 
 # Postgres CLient
     echo " " && echo "Instalando Postgres Client" && echo " "
-    sudo apt install -y postgresql-client-14 postgresql-client-15
+    sudo apt install -y postgresql-client-14 postgresql-client-15 postgresql-client-16
 
 # GCloud CLI
     echo " " && echo "Instalando GCloud CLI" && echo " "
@@ -171,7 +177,6 @@
 #Snap
     snap install spotify
     snap install slack
-    snap install postman
     snap install obs-studio
 
 #ZSH
