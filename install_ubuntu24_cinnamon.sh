@@ -201,3 +201,4 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ##Auto completions
 echo 'source <(kubectl completion zsh)' >> ~/.zshrc
 echo 'source <(stern completion zsh)' >> ~/.zshrc
+
