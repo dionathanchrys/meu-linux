@@ -7,6 +7,7 @@ v_kubectl=1.35
 v_stern=1.33.1
 url_veracrypt="https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Ubuntu-24.04-amd64.deb"
 url_virtualbox="https://download.virtualbox.org/virtualbox/7.2.6/virtualbox-7.2_7.2.6-172322~Ubuntu~noble_amd64.deb"
+url_freelense="https://github.com/freelensapp/freelens/releases/download/v1.8.1/Freelens-1.8.1-linux-amd64.deb"
 
 ####################################################################
 echo "Executar esse script como root, caso não esteja cancele agora!"
@@ -113,13 +114,15 @@ install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 chmod a+r /etc/apt/keyrings/docker.gpg
 echo " " && echo "Configurando o repositório" && echo " "
-echo \
-        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+      tee /etc/apt/sources.list.d/docker.list > /dev/null
 echo " " && echo "Instalando Docker Engine e Docker Compose" && echo " "
 apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
+##Adicionando usuário ao grupo docker
+echo " " && echo "Adicionando usuário ao grupo docker" && echo " "
+usermod -aG docker $USER
+newgrp docker
 
 #Kubernetes
 echo " " && echo "Instalando K8S e ferramentas" && echo " "
@@ -137,12 +140,12 @@ tar -xvf $download_dir/stern.tar.gz -C $download_dir
 mv $download_dir/stern /usr/local/bin
 chmod +x /usr/local/bin/stern
 
-##OpenLens
-echo " " && echo "Baixando OpenLens" && echo " "
-wget -O $download_dir/openlens.deb https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.amd64.deb
+##FreeLens
+echo " " && echo "Baixando FreeLens" && echo " "
+wget -O $download_dir/freelens.deb $url_freelense
 
-echo " " && echo "Instalando OpenLens" && echo " "
-apt install -y $download_dir/openlens.deb
+echo " " && echo "Instalando FreeLens" && echo " "
+apt install -y $download_dir/freelens.deb
 
 ##K9S
 echo " " && echo "Baixando K9S" && echo " "
@@ -150,6 +153,11 @@ wget -O $download_dir/k9s.deb https://github.com/derailed/k9s/releases/download/
 
 echo " " && echo "Instalando K9S" && echo " "
 apt install -y $download_dir/k9s.deb
+
+#Kind
+curl -Lo $download_dir/kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64
+chmod +x $download_dir/kind
+sudo mv $download_dir/kind /usr/local/bin/kind
 
 #VirtualBox
 echo " " && echo "Baixando VirtualBox" && echo " "
@@ -178,9 +186,6 @@ apt install -y google-cloud-cli
 # echo " " && echo "Instalando Anydesk" && echo " "
 # apt install -y $download_dir/anydesk.deb
 
-#Utilitarios
-#Precisa para funcionar o Graphical Hardware Monitor no painel
-apt install gir1.2-gtop-2.0
 #Precisa para funcionar copy do K9S
 apt install -y xclip
 
@@ -200,5 +205,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 ##Auto completions
 echo 'source <(kubectl completion zsh)' >> ~/.zshrc
+echo 'source <(kubectl completion bash)' >> ~/.bashrc
 echo 'source <(stern completion zsh)' >> ~/.zshrc
-
+echo 'source <(stern completion bash)' >> ~/.bashrc
