@@ -24,9 +24,9 @@ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | 
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 
 echo " " && echo "Adicionando repos Kubernetes" && echo " "
-apt install -y apt-transport-https ca-certificates curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+curl -LO https://dl.k8s.io/release/v${v_kubectl}/bin/linux/amd64/kubectl
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${v_kubectl}/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
+sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
 
 echo " " && echo "Adicionando repos Postgres" && echo " "
 install -d /usr/share/postgresql-common/pgdg
@@ -129,14 +129,9 @@ usermod -aG docker $USER
 newgrp docker
 
 #Kubernetes
-echo " " && echo "Instalando K8S e ferramentas" && echo " "
+echo " " && echo "Instalando kubectl" && echo " "
 apt install -y apt-transport-https ca-certificates curl gnupg
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v${v_kubectl}/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${v_kubectl}/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
-chmod 644 /etc/apt/sources.list.d/kubernetes.list
-apt install -y kubectl=${v_kubectl}
-apt-mark hold kubectl
+apt install -y kubectl
 
 ##Stern
 wget -O $download_dir/stern.tar.gz https://github.com/stern/stern/releases/download/v${v_stern}/stern_${v_stern}_linux_amd64.tar.gz
@@ -191,11 +186,6 @@ apt install -y google-cloud-cli
 #Precisa para funcionar copy do K9S
 apt install -y xclip
 
-#Snap
-snap install spotify
-snap install slack
-snap install obs-studio
-
 #ZSH
 echo " " && echo "Instalando ZSH" && echo " "
 apt install -y zsh
@@ -203,15 +193,15 @@ echo " " && echo "Configurando ZSH como default" && echo " "
 chsh -s $(which zsh)
 
 echo " " && echo "Instalando Oh My " && echo " "
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 
 #Auto completions
-echo 'source <(kubectl completion zsh)' >> ~/.zshrc
-echo 'source <(kubectl completion bash)' >> ~/.bashrc
-echo 'source <(stern completion zsh)' >> ~/.zshrc
-echo 'source <(stern completion bash)' >> ~/.bashrc
-echo 'source <(kind completion zsh)' >> ~/.zshrc
-echo 'source <(kind completion bash)' >> ~/.bashrc
+echo 'source <(kubectl completion zsh)' >> /home/$SUDO_USER/.zshrc
+echo 'source <(kubectl completion bash)' >> /home/$SUDO_USER/.bashrc
+echo 'source <(stern completion zsh)' >> /home/$SUDO_USER/.zshrc
+echo 'source <(stern completion bash)' >> /home/$SUDO_USER/.bashrc
+echo 'source <(kind completion zsh)' >> /home/$SUDO_USER/.zshrc
+echo 'source <(kind completion bash)' >> /home/$SUDO_USER/.bashrc
 
 #Know Hosts
 echo " " && echo "Adicionando github.com e Azure DevOps aos known hosts" && echo " "
@@ -228,4 +218,12 @@ Host ssh.dev.azure.com
     IdentityFile ~/VC
     PubkeyAcceptedAlgorithms +ssh-rsa
     HostkeyAlgorithms +ssh-rsa
-" >> ~/.ssh/known_hosts
+" >> /home/$SUDO_USER/.ssh/known_hosts
+
+#Snap
+echo " " && echo "Instalando Spotify" && echo " "
+snap install spotify
+echo " " && echo "Instalando Slack" && echo " "
+snap install slack
+echo " " && echo "Instalando OBS Studio" && echo " "
+snap install obs-studio
