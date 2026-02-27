@@ -8,6 +8,8 @@ v_stern=1.33.1
 url_veracrypt="https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Ubuntu-24.04-amd64.deb"
 url_virtualbox="https://download.virtualbox.org/virtualbox/7.2.6/virtualbox-7.2_7.2.6-172322~Ubuntu~noble_amd64.deb"
 url_freelense="https://github.com/freelensapp/freelens/releases/download/v1.8.1/Freelens-1.8.1-linux-amd64.deb"
+url_k9s="https://github.com/derailed/k9s/releases/download/v0.50.18/k9s_linux_amd64.deb"
+url_kind="https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64"
 
 ####################################################################
 echo "Executar esse script como root, caso não esteja cancele agora!"
@@ -143,14 +145,12 @@ chmod +x /usr/local/bin/stern
 ##FreeLens
 echo " " && echo "Baixando FreeLens" && echo " "
 wget -O $download_dir/freelens.deb $url_freelense
-
 echo " " && echo "Instalando FreeLens" && echo " "
 apt install -y $download_dir/freelens.deb
 
 ##K9S
 echo " " && echo "Baixando K9S" && echo " "
-wget -O $download_dir/k9s.deb https://github.com/derailed/k9s/releases/download/v0.50.18/k9s_linux_amd64.deb
-
+wget -O $download_dir/k9s.deb $url_k9s
 echo " " && echo "Instalando K9S" && echo " "
 apt install -y $download_dir/k9s.deb
 
@@ -203,8 +203,27 @@ chsh -s $(which zsh)
 echo " " && echo "Instalando Oh My " && echo " "
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-##Auto completions
+#Auto completions
 echo 'source <(kubectl completion zsh)' >> ~/.zshrc
 echo 'source <(kubectl completion bash)' >> ~/.bashrc
 echo 'source <(stern completion zsh)' >> ~/.zshrc
 echo 'source <(stern completion bash)' >> ~/.bashrc
+echo 'source <(kind completion zsh)' >> ~/.zshrc
+echo 'source <(kind completion bash)' >> ~/.bashrc
+
+#Know Hosts
+echo " " && echo "Adicionando github.com e Azure DevOps aos known hosts" && echo " "
+echo "Host vs-ssh.visualstudio.com    
+    HostName vs-ssh.visualstudio.com
+    User git
+    IdentityFile ~/VC
+    PubkeyAcceptedAlgorithms +ssh-rsa
+    HostkeyAlgorithms +ssh-rsa
+
+Host ssh.dev.azure.com
+    HostName ssh.dev.azure.com
+    User git
+    IdentityFile ~/VC
+    PubkeyAcceptedAlgorithms +ssh-rsa
+    HostkeyAlgorithms +ssh-rsa
+" >> ~/.ssh/known_hosts
