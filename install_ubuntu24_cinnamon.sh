@@ -37,6 +37,10 @@ echo " " && echo "Adicionando repos GCloud CLI" && echo " "
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 
+echo " " && echo "Adicionando repos VS Code" && echo " "
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
+
 #Atualizando sistema
 echo " " && echo "Atualizando sistema (apt UPDATE)" && echo " "
 apt update -y
@@ -69,10 +73,8 @@ echo " " && echo "Instalando Sublime Merge" && echo " "
 apt install -y sublime-merge
 
 #VS Code
-echo " " && echo "Baixando VS Code" && echo " "
-wget -O $download_dir/vscode.deb https://update.code.visualstudio.com/latest/linux-deb-x64/stable
 echo " " && echo "Instalando VS Code" && echo " "
-apt install -y $download_dir/vscode.deb
+apt install -y code
 
 #VeraCrypt
 echo " " && echo "Baixando VeraCrypt" && echo " "
