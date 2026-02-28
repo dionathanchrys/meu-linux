@@ -197,11 +197,12 @@ apt install -y xclip
 #ZSH
 echo " " && echo "Instalando ZSH" && echo " "
 apt install -y zsh
-echo " " && echo "Configurando ZSH como default" && echo " "
-chsh -s $(which zsh)
 
 echo " " && echo "Instalando Oh My " && echo " "
-RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+sudo -u "$SUDO_USER" RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+
+echo " " && echo "Configurando ZSH como default" && echo " "
+chsh -s $(which zsh) "/home/$SUDO_USER"
 
 #Auto completions
 echo 'source <(kubectl completion zsh)' >> /home/$SUDO_USER/.zshrc
@@ -210,20 +211,22 @@ echo 'source <(stern completion zsh)' >> /home/$SUDO_USER/.zshrc
 echo 'source <(stern completion bash)' >> /home/$SUDO_USER/.bashrc
 echo 'source <(kind completion zsh)' >> /home/$SUDO_USER/.zshrc
 echo 'source <(kind completion bash)' >> /home/$SUDO_USER/.bashrc
+echo 'source <(k9s completion zsh)' >> /home/$SUDO_USER/.zshrc
+echo 'source <(k9s completion bash)' >> /home/$SUDO_USER/.bashrc
 
 #Know Hosts
 echo " " && echo "Adicionando github.com e Azure DevOps aos known hosts" && echo " "
-echo "Host vs-ssh.visualstudio.com    
+echo "Host vs-ssh.visualstudio.com
     HostName vs-ssh.visualstudio.com
     User git
-    IdentityFile ~/VC
+    IdentityFile ~/path/to/your/private/key
     PubkeyAcceptedAlgorithms +ssh-rsa
     HostkeyAlgorithms +ssh-rsa
 
 Host ssh.dev.azure.com
     HostName ssh.dev.azure.com
     User git
-    IdentityFile ~/VC
+    IdentityFile ~/path/to/your/private/key
     PubkeyAcceptedAlgorithms +ssh-rsa
     HostkeyAlgorithms +ssh-rsa
 " >> /home/$SUDO_USER/.ssh/known_hosts
