@@ -18,6 +18,10 @@ read
 ####################################################################
 mkdir /install-script
 
+echo " " && echo "Atualizando sistema (apt UPDATE)" && echo " "
+apt update -y
+apt install -y apt-transport-https ca-certificates curl gnupg
+
 #Adicionando repos
 echo " " && echo "Adicionando repos Sublime Text" && echo " "
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
@@ -40,6 +44,18 @@ echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.clou
 echo " " && echo "Adicionando repos VS Code" && echo " "
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
+
+echo " " && echo "Adicionando repos Docker" && echo " "
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
 
 #Atualizando sistema
 echo " " && echo "Atualizando sistema (apt UPDATE)" && echo " "
@@ -111,16 +127,6 @@ echo " " && echo "Instalando VLC" && echo " "
 apt install -y vlc
 
 #Docker
-echo " " && echo "Instalando Docker Repository" && echo " "
-apt install gnupg
-echo " " && echo "Adicionando GPG key" && echo " "
-install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-chmod a+r /etc/apt/keyrings/docker.gpg
-echo " " && echo "Configurando o repositório" && echo " "
-echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-      "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-      tee /etc/apt/sources.list.d/docker.list > /dev/null
 echo " " && echo "Instalando Docker Engine e Docker Compose" && echo " "
 apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ##Adicionando usuário ao grupo docker
@@ -130,7 +136,6 @@ newgrp docker
 
 #Kubernetes
 echo " " && echo "Instalando kubectl" && echo " "
-apt install -y apt-transport-https ca-certificates curl gnupg
 apt install -y kubectl
 
 ##Stern
