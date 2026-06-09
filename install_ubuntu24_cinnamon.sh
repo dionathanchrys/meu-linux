@@ -58,7 +58,10 @@ echo " " && echo "Adicionando repos GCloud CLI" && echo " "
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 
-
+echo " " && echo "Adicionando repos Slack Desktop" && echo " "
+curl -fsSL https://packagecloud.io/slacktechnologies/slack/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/slack.gpg
+echo "deb [signed-by=/usr/share/keyrings/slack.gpg] https://packagecloud.io/slacktechnologies/slack/debian/ jessie main" \
+| sudo tee /etc/apt/sources.list.d/slack.list
 
 #Atualizando sistema
 echo " " && echo "Atualizando sistema (apt UPDATE)" && echo " "
@@ -75,6 +78,10 @@ apt install -y $download_dir/google-chrome.deb
 #Git
 echo " " && echo "Instalando Git" && echo " "
 apt install -y git
+
+#Slack
+echo " " && echo "Instalando Slack" && echo " "
+apt install -y slack-desktop
 
 #Postman
 echo " " && echo "Instalando Postman" && echo " "
@@ -234,7 +241,5 @@ Host ssh.dev.azure.com
 #Snap
 echo " " && echo "Instalando Spotify" && echo " "
 snap install spotify
-echo " " && echo "Instalando Slack" && echo " "
-snap install slack
 echo " " && echo "Instalando OBS Studio" && echo " "
 snap install obs-studio
